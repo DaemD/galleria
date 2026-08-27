@@ -14,10 +14,10 @@ export type ImagePalette = {
 };
 
 const FALLBACK: ImagePalette = {
-  dominant: "#c4b5a5",
-  soft: "#ebe4db",
-  deep: "#2a241c",
-  muted: "#8a7a6a",
+  dominant: "#272729",
+  soft: "#2a2a2c",
+  deep: "#252527",
+  muted: "#7a7a7a",
   isDark: true,
 };
 

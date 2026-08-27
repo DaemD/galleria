@@ -1,16 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import "./globals.css";
 
-const display = Fraunces({
-  variable: "--font-display",
+const apple = Inter({
+  variable: "--font-apple",
   subsets: ["latin"],
-});
-
-const body = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +22,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#f5f4f3",
+  themeColor: "#f5f5f7",
 };
 
 export default function RootLayout({
@@ -35,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
+    <html lang="en" className={`${apple.variable} h-full`}>
       <body className="min-h-dvh antialiased">{children}</body>
     </html>
   );

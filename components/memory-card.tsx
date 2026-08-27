@@ -39,7 +39,7 @@ export function MemoryCard({
   }, [photo.src, onPaletteChange]);
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center gap-5">
+    <div className="flex w-full max-w-sm flex-col items-center gap-6">
       <button
         type="button"
         onClick={() => setFlipped((v) => !v)}
@@ -54,7 +54,7 @@ export function MemoryCard({
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
-            className="absolute inset-0 overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
+            className="product-shadow absolute inset-0 overflow-hidden rounded-[18px] bg-[var(--color-canvas)]"
             style={{ backfaceVisibility: "hidden" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -65,20 +65,20 @@ export function MemoryCard({
             />
           </div>
           <div
-            className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-[1.75rem] px-8 text-center shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
+            className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-[18px] px-8 text-center"
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-              background: `linear-gradient(160deg, ${palette.deep} 0%, ${palette.dominant} 100%)`,
+              background: palette.deep,
             }}
           >
-            <p className="font-[family-name:var(--font-display)] text-3xl text-white">
+            <p className="apple-display text-[34px] tracking-[-0.374px] text-white">
               {photo.title}
             </p>
-            <p className="text-base leading-relaxed text-white/85">
+            <p className="text-[17px] leading-[1.47] tracking-[-0.374px] text-[var(--color-body-muted)]">
               {photo.note}
             </p>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/45">
+            <p className="apple-fine text-[var(--color-body-muted)]">
               tap to flip back
             </p>
           </div>
@@ -91,7 +91,7 @@ export function MemoryCard({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-sm text-white/70"
+            className="apple-caption text-[var(--color-body-muted)]"
           >
             Tap the card for a note
           </motion.p>
@@ -99,11 +99,7 @@ export function MemoryCard({
       </AnimatePresence>
 
       {onKeep && (
-        <button
-          type="button"
-          onClick={onKeep}
-          className="w-full rounded-full bg-white/95 px-6 py-3.5 text-sm font-medium text-black"
-        >
+        <button type="button" onClick={onKeep} className="btn-primary w-full">
           {keepLabel}
         </button>
       )}

@@ -21,9 +21,11 @@ interface Carousel_006Props {
   loop?: boolean;
   showNavigation?: boolean;
   showPagination?: boolean;
-  /** light = original Skipper look; dark = readable on Spotify-style backdrops */
   tone?: "light" | "dark";
-  onCurrentChange?: (index: number, image: { src: string; alt: string; title: string }) => void;
+  onCurrentChange?: (
+    index: number,
+    image: { src: string; alt: string; title: string },
+  ) => void;
 }
 
 const Carousel_006 = ({
@@ -58,7 +60,7 @@ const Carousel_006 = ({
 
   if (images.length === 0) {
     return (
-      <div className="flex h-64 w-full items-center justify-center px-6 text-center text-sm text-black/40">
+      <div className="flex h-64 w-full items-center justify-center px-6 text-center text-[14px] tracking-[-0.224px] text-[var(--color-ink-muted-48)]">
         Pull a memory first — your deck starts empty.
       </div>
     );
@@ -95,12 +97,15 @@ const Carousel_006 = ({
               animate={{
                 clipPath:
                   current !== index
-                    ? "inset(15% 0 15% 0 round 2rem)"
-                    : "inset(0 0 0 0 round 2rem)",
+                    ? "inset(15% 0 15% 0 round 18px)"
+                    : "inset(0 0 0 0 round 18px)",
               }}
-              className="h-full w-full overflow-hidden rounded-3xl"
+              className={cn(
+                "h-full w-full overflow-hidden rounded-[18px]",
+                current === index && "product-shadow",
+              )}
             >
-              <div className="relative h-full w-full border">
+              <div className="relative h-full w-full">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img.src}
@@ -116,8 +121,10 @@ const Carousel_006 = ({
                   animate={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{ duration: 0.5 }}
                   className={cn(
-                    "absolute bottom-0 left-2 flex h-[14%] w-full translate-y-full items-center justify-center p-2 text-center font-medium tracking-tight",
-                    tone === "dark" ? "text-white/55" : "text-black/20",
+                    "absolute bottom-0 left-2 flex h-[14%] w-full translate-y-full items-center justify-center p-2 text-center text-[14px] font-semibold tracking-[-0.224px]",
+                    tone === "dark"
+                      ? "text-[var(--color-body-muted)]"
+                      : "text-[var(--color-ink-muted-48)]",
                   )}
                 >
                   {img.title}
@@ -134,23 +141,29 @@ const Carousel_006 = ({
             type="button"
             aria-label="Previous slide"
             onClick={() => api?.scrollPrev()}
-            className="rounded-full bg-black/10 p-2"
+            className={cn(
+              "btn-chip",
+              tone === "dark" && "btn-chip-on-dark",
+            )}
           >
-            <ChevronLeft className="text-white" />
+            <ChevronLeft className="size-5" />
           </button>
           <button
             type="button"
             aria-label="Next slide"
             onClick={() => api?.scrollNext()}
-            className="rounded-full bg-black/10 p-2"
+            className={cn(
+              "btn-chip",
+              tone === "dark" && "btn-chip-on-dark",
+            )}
           >
-            <ChevronRight className="text-white" />
+            <ChevronRight className="size-5" />
           </button>
         </div>
       )}
 
       {showPagination && (
-        <div className="flex w-full items-center justify-center">
+        <div className="mt-8 flex w-full items-center justify-center">
           <div className="flex items-center justify-center gap-2">
             {Array.from({ length: images.length }).map((_, index) => (
               <button
@@ -162,10 +175,10 @@ const Carousel_006 = ({
                   current === index
                     ? tone === "dark"
                       ? "bg-white"
-                      : "bg-black"
+                      : "bg-[var(--color-ink)]"
                     : tone === "dark"
                       ? "bg-white/35"
-                      : "bg-[#D9D9D9]",
+                      : "bg-[var(--color-hairline)]",
                 )}
                 aria-label={`Go to slide ${index + 1}`}
               />

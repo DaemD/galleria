@@ -43,35 +43,26 @@ export function CollectionView({
 
   return (
     <section
-      className="flex h-full min-h-dvh w-screen flex-col overflow-hidden transition-[background] duration-700 ease-out pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))]"
-      style={{
-        background: `linear-gradient(180deg, ${palette.dominant} 0%, ${palette.deep} 72%, #0a0908 100%)`,
-      }}
+      className="flex h-full min-h-dvh w-screen flex-col overflow-hidden transition-[background-color] duration-700 ease-out pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))]"
+      style={{ backgroundColor: palette.deep || "var(--color-surface-tile-1)" }}
     >
       <header className="relative z-10 flex items-center justify-between px-5 pb-2">
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full bg-white/15 px-4 py-2 text-sm text-white/90 backdrop-blur"
+          className="rounded-full bg-[rgba(210,210,215,0.28)] px-[15px] py-2 text-[14px] tracking-[-0.224px] text-white transition-transform active:scale-95"
         >
           Back
         </button>
-        <p className="font-[family-name:var(--font-display)] text-xl text-white">
+        <p className="text-[21px] font-semibold tracking-[0.231px] text-white">
           Your deck
         </p>
-        <span className="w-16 text-right text-sm text-white/55">
+        <span className="w-16 text-right text-[14px] tracking-[-0.224px] text-[var(--color-body-muted)]">
           {items.length}
         </span>
       </header>
 
       <div className="relative flex flex-1 items-center justify-center overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-50"
-          style={{
-            background: `radial-gradient(ellipse at 50% 30%, ${palette.soft}55 0%, transparent 60%)`,
-          }}
-        />
         <Carousel_006
           images={items.map((item) => ({
             src: item.src,

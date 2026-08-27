@@ -1,23 +1,188 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f4f3;
-  --foreground: #2a241c;
+  --color-primary: #0066cc;
+  --color-primary-focus: #0071e3;
+  --color-primary-on-dark: #2997ff;
+  --color-ink: #1d1d1f;
+  --color-body: #1d1d1f;
+  --color-body-on-dark: #ffffff;
+  --color-body-muted: #cccccc;
+  --color-ink-muted-80: #333333;
+  --color-ink-muted-48: #7a7a7a;
+  --color-divider-soft: #f0f0f0;
+  --color-hairline: #e0e0e0;
+  --color-canvas: #ffffff;
+  --color-canvas-parchment: #f5f5f7;
+  --color-surface-pearl: #fafafc;
+  --color-surface-tile-1: #272729;
+  --color-surface-tile-2: #2a2a2c;
+  --color-surface-tile-3: #252527;
+  --color-surface-black: #000000;
+  --color-surface-chip: rgba(210, 210, 215, 0.64);
+  --color-on-primary: #ffffff;
+  --shadow-product: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+
+  --background: var(--color-canvas-parchment);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
+  --color-primary: var(--color-primary);
+  --color-ink: var(--color-ink);
+  --color-parchment: var(--color-canvas-parchment);
+  --font-sans: var(--font-apple);
+  --font-display: var(--font-apple);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), Georgia, serif;
+  font-family:
+    var(--font-apple),
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
 }
 
-.perspective-\[1200px\] {
-  perspective: 1200px;
+.apple-display {
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  line-height: 1.1;
+}
+
+.apple-lead {
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+}
+
+.apple-caption {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
+}
+
+.apple-fine {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.12px;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: 9999px;
+  padding: 11px 22px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  transition: transform 0.12s ease;
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-primary-focus);
+  outline-offset: 2px;
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+}
+
+.btn-secondary-pill {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 9999px;
+  padding: 11px 22px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  transition: transform 0.12s ease;
+}
+
+.btn-secondary-pill:active {
+  transform: scale(0.95);
+}
+
+.btn-pearl {
+  background: var(--color-surface-pearl);
+  color: var(--color-ink-muted-80);
+  border: 3px solid var(--color-divider-soft);
+  border-radius: 11px;
+  padding: 8px 14px;
+  font-size: 14px;
+  letter-spacing: -0.224px;
+  transition: transform 0.12s ease;
+}
+
+.btn-pearl:active {
+  transform: scale(0.95);
+}
+
+.btn-chip {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-chip);
+  color: var(--color-ink);
+  transition: transform 0.12s ease;
+}
+
+.btn-chip:active {
+  transform: scale(0.95);
+}
+
+.btn-chip-on-dark {
+  background: rgba(210, 210, 215, 0.28);
+  color: var(--color-on-dark, #fff);
+}
+
+.product-shadow {
+  box-shadow: var(--shadow-product);
+}
+
+.input-pill {
+  height: 44px;
+  width: 100%;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  padding: 12px 20px;
+  font-size: 17px;
+  letter-spacing: -0.374px;
+  outline: none;
+  text-align: center;
+}
+
+.input-pill:focus {
+  outline: 2px solid var(--color-primary-focus);
+  outline-offset: 2px;
+}
+
+.input-pill::placeholder {
+  color: var(--color-ink-muted-48);
 }

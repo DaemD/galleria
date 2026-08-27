@@ -130,54 +130,31 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
     return <PassphraseGate onUnlocked={() => setUnlocked(true)} />;
   }
 
-  const ambient =
+  const shellStyle =
     screen === "machine"
       ? {
-          background: "radial-gradient(ellipse at top, #fff7ed 0%, #f5f4f3 50%, #ebe6df 100%)",
-          color: "#2a241c",
+          backgroundColor: "var(--color-canvas-parchment)",
+          color: "var(--color-ink)",
         }
       : {
-          background: `linear-gradient(180deg, ${palette.dominant} 0%, ${palette.deep} 65%, #090807 100%)`,
-          color: "#f5f4f3",
+          backgroundColor: palette.deep || "var(--color-surface-tile-1)",
+          color: "var(--color-body-on-dark)",
         };
 
   return (
     <div
-      className="relative min-h-dvh overflow-hidden transition-[background] duration-700 ease-out"
-      style={ambient}
+      className="relative min-h-dvh overflow-hidden transition-[background-color] duration-700 ease-out"
+      style={shellStyle}
     >
-      {screen === "machine" && (
-        <>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -left-24 top-32 size-72 rounded-full bg-[#f0c9a8]/30 blur-3xl"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-20 bottom-28 size-80 rounded-full bg-[#c9d4c5]/35 blur-3xl"
-          />
-        </>
-      )}
-
-      {(screen === "reveal" || screen === "collection") && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-700"
-          style={{
-            background: `radial-gradient(ellipse at 50% 20%, ${palette.soft} 0%, transparent 55%)`,
-          }}
-        />
-      )}
-
       <div className="relative z-10">
         <AnimatePresence mode="wait">
           {screen === "machine" && (
             <motion.div
               key="machine"
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
             >
               <PullMachine
                 newCount={newCount}
@@ -193,10 +170,10 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
           {screen === "reveal" && current && (
             <motion.div
               key="reveal"
-              initial={{ opacity: 0, scale: 0.94 }}
+              initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.35 }}
               className="flex min-h-dvh flex-col items-center justify-center px-5 py-8"
             >
               <MemoryCard
@@ -215,10 +192,10 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
           {screen === "collection" && (
             <motion.div
               key="collection"
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
             >
               <CollectionView
                 items={collection}
