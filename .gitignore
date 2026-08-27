@@ -44,3 +44,6 @@ next-env.d.ts
 /photos/
 /public/memories/
 
+# nested clone from nomad-portfolio template (not part of this repo)
+/shutter/nomad-portfolio/.git/
+
