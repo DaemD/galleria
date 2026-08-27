@@ -51,6 +51,19 @@ export function PassphraseGate({ onUnlocked }: PassphraseGateProps) {
         onSubmit={onSubmit}
         className="relative z-10 flex w-full max-w-sm flex-col items-center gap-6 text-center"
       >
+        {/* Decorative mark — soft hint, not a caption */}
+        <div className="mb-1 opacity-[0.55] grayscale-[35%] contrast-75">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/hint-panda.png"
+            alt=""
+            width={88}
+            height={88}
+            draggable={false}
+            className="pointer-events-none mx-auto select-none"
+          />
+        </div>
+
         <p className="font-[family-name:var(--font-display)] text-4xl tracking-tight text-[#2a241c]">
           for you
         </p>
