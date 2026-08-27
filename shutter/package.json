@@ -1,0 +1,10 @@
+{
+  "name": "zeneb-shutter",
+  "private": true,
+  "scripts": {
+    "start": "serve nomad-portfolio -l tcp://0.0.0.0:$PORT"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
