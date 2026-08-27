@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw dumps (served copies live in public/photos)
+/photos/
+/public/memories/
+
