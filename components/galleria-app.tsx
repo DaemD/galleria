@@ -44,6 +44,7 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
   const [screen, setScreen] = useState<Screen>("machine");
   const [current, setCurrent] = useState<MemoryPhoto | null>(null);
   const [pulling, setPulling] = useState(false);
+  const [noteLoading, setNoteLoading] = useState(false);
   const [ready, setReady] = useState(false);
   const [palette, setPalette] = useState<ImagePalette>(DEFAULT_PALETTE);
 
@@ -99,6 +100,42 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
 
   const newCount = photos.filter((photo) => !collectedIds.has(photo.id)).length;
 
+  async function loadNoteFor(photo: MemoryPhoto) {
+    setNoteLoading(true);
+    try {
+      const res = await fetch("/api/note", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: photo.id }),
+      });
+      if (!res.ok) throw new Error("note failed");
+      const data = (await res.json()) as { title: string; note: string };
+      setCurrent((prev) =>
+        prev && prev.id === photo.id
+          ? {
+              ...prev,
+              title: data.title,
+              note: data.note,
+              alt: data.title,
+            }
+          : prev,
+      );
+    } catch {
+      setCurrent((prev) =>
+        prev && prev.id === photo.id
+          ? {
+              ...prev,
+              title: "This one",
+              note: "Couldn't write a note just now — but I still love this frame.",
+              alt: "This one",
+            }
+          : prev,
+      );
+    } finally {
+      setNoteLoading(false);
+    }
+  }
+
   function pull() {
     if (pulling || photos.length === 0) return;
     setPulling(true);
@@ -106,8 +143,17 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
     window.setTimeout(() => {
       const picked = weightedPick(photos, collectedIds);
       if (picked) {
-        setCurrent(picked);
+        const existing = collection.find((item) => item.id === picked.id);
+        const next = existing
+          ? { ...picked, title: existing.title, note: existing.note, alt: existing.alt }
+          : picked;
+        setCurrent(next);
         setScreen("reveal");
+        if (!existing?.note) {
+          void loadNoteFor(next);
+        } else {
+          setNoteLoading(false);
+        }
       }
       setPulling(false);
     }, 650);
@@ -178,6 +224,7 @@ export function GalleriaApp({ initiallyUnlocked }: { initiallyUnlocked: boolean 
             >
               <MemoryCard
                 photo={current}
+                noteLoading={noteLoading}
                 onKeep={keepCurrent}
                 onPaletteChange={onPaletteChange}
                 keepLabel={

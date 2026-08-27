@@ -12,6 +12,7 @@ import type { MemoryPhoto } from "@/lib/types";
 
 type MemoryCardProps = {
   photo: MemoryPhoto;
+  noteLoading?: boolean;
   onKeep?: () => void;
   keepLabel?: string;
   onPaletteChange?: (palette: ImagePalette) => void;
@@ -19,6 +20,7 @@ type MemoryCardProps = {
 
 export function MemoryCard({
   photo,
+  noteLoading = false,
   onKeep,
   keepLabel = "Keep in my deck",
   onPaletteChange,
@@ -72,15 +74,28 @@ export function MemoryCard({
               background: palette.deep,
             }}
           >
-            <p className="apple-display text-[34px] tracking-[-0.374px] text-white">
-              {photo.title}
-            </p>
-            <p className="text-[17px] leading-[1.47] tracking-[-0.374px] text-[var(--color-body-muted)]">
-              {photo.note}
-            </p>
-            <p className="apple-fine text-[var(--color-body-muted)]">
-              tap to flip back
-            </p>
+            {noteLoading ? (
+              <>
+                <p className="apple-display text-[28px] tracking-[-0.28px] text-white">
+                  Looking…
+                </p>
+                <p className="text-[17px] leading-[1.47] tracking-[-0.374px] text-[var(--color-body-muted)]">
+                  Writing something from this photo.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="apple-display text-[34px] tracking-[-0.374px] text-white">
+                  {photo.title}
+                </p>
+                <p className="text-[17px] leading-[1.47] tracking-[-0.374px] text-[var(--color-body-muted)]">
+                  {photo.note}
+                </p>
+                <p className="apple-fine text-[var(--color-body-muted)]">
+                  tap to flip back
+                </p>
+              </>
+            )}
           </div>
         </motion.div>
       </button>
@@ -93,13 +108,18 @@ export function MemoryCard({
             exit={{ opacity: 0 }}
             className="apple-caption text-[var(--color-body-muted)]"
           >
-            Tap the card for a note
+            {noteLoading ? "Note incoming…" : "Tap the card for a note"}
           </motion.p>
         )}
       </AnimatePresence>
 
       {onKeep && (
-        <button type="button" onClick={onKeep} className="btn-primary w-full">
+        <button
+          type="button"
+          onClick={onKeep}
+          disabled={noteLoading}
+          className="btn-primary w-full disabled:opacity-40"
+        >
           {keepLabel}
         </button>
       )}
